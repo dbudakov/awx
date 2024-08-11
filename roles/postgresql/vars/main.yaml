@@ -1,0 +1,21 @@
+postgres_instance_name: postgres
+postgresql_user: postgres
+postgresql_password: postgres
+postgres_instance_port: 5432
+postgresql_databases:
+  - name: awx
+    login_host: "{{ postgres_instance_name }}"
+    login_password: "{{ postgresql_password }}"
+    login_user: "{{ postgresql_user }}"
+    port: "{{ postgres_instance_port }}"
+    owner: awx
+postgresql_users:
+  - name: awx
+    password: awx
+    db: awx
+    login_host: "{{ postgres_instance_name }}"
+    login_password: "{{ postgresql_password }}"
+    login_user: "{{ postgresql_user }}"
+    port: "{{ postgres_instance_port }}"
+postgres_users_no_log: true
+postgresql_version: 15.2

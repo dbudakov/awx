@@ -7,4 +7,5 @@ roles:
     version: "2.1.5"
   - name: geerlingguy.helm
     version: "1.0.1"
-    
+  - name: cimon-io.postgresql-client
+    version: "v1.0.1"

@@ -6,25 +6,39 @@
   become: true
 
   roles:
-    - name: "Install docker"
-      role: geerlingguy.docker
-      vars:
-        docker_users: vagrant
-    - name: "Install minikube"
-      role: robertdebock.minikube
-      vars:
-        minikube_user: vagrant
-        minikube_command: "/usr/bin/minikube start --driver docker"
-    - name: "Install kubectl"
-      role: robertdebock.kubectl
-    - name: "Install helm"
-      role: geerlingguy.helm
-      vars:
-        helm_version: 'v3.2.1'
-        helm_platform: linux
-        helm_arch: amd64
+    # - name: "Install docker"
+    #   role: geerlingguy.docker
+    #   vars:
+    #     docker_users: vagrant
+    - name: "Setting docker"
+      become: false
+      role: docker
+    # - name: "Install minikube"
+    #   role: robertdebock.minikube
+    #   vars:
+    #     minikube_user: vagrant
+    #     minikube_command: "/usr/bin/minikube start --driver docker"
+    # - name: "Install kubectl"
+    #   role: robertdebock.kubectl
+    # - name: "Install helm"
+    #   role: geerlingguy.helm
+    #   vars:
+    #     helm_version: 'v3.2.1'
+    #     helm_platform: linux
+    #     helm_arch: amd64
+    - name: "Install postgresql-client"
+      role: cimon-io.postgresql-client
+      postgresql_client_version: "15"
     - name: "Install and run PostgreSQL"
       role: postgresql
+      # vars: 
+        # postgresql_version: 15.2
+
+    # - name: "Create database for awx"
+    #   become: true
+    #   vars_files:
+    #     - ../postgresql/vars/main.yml
+    #   role: geerlingguy.postgresql
 
 
   # 

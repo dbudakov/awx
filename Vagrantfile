@@ -50,11 +50,14 @@ Vagrant.configure("2") do |config|
         #   SHELL
       end
       config.vm.provision "ansible" do |ansible|
+        
         ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path}"
         ansible.galaxy_role_file = 'requirements.yml'
+        
         ansible.playbook = "playbook.yaml"
         ansible.become = "true"
         # ansible.verbose = "vvv"
+        
       end
     end
     end
