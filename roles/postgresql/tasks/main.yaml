@@ -1,0 +1,17 @@
+# - name: Check docker status
+
+- name: Create Postgres Container
+  docker_container:
+    name: postgres
+    image: postgres:12
+    state: started
+    recreate: yes
+    ports:
+      - "5432:5432"
+    volumes:
+      - /home/hitch_postgres_data:/var/lib/postgresql/data
+    networks:
+      - name: minikube
+    env:
+      POSTGRES_USER: "myuser"
+      POSTGRES_PASSWORD: "myuser"

@@ -1,0 +1,10 @@
+roles:
+  - name: geerlingguy.docker
+    version: "7.3.0"
+  - name: robertdebock.minikube
+    version: "2.1.6"
+  - name: robertdebock.kubectl
+    version: "2.1.5"
+  - name: geerlingguy.helm
+    version: "1.0.1"
+    

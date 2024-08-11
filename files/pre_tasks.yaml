@@ -1,0 +1,7 @@
+- name: Install collections and roles together
+  delegate_to: localhost
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_env.PATH }}"        
+  community.general.ansible_galaxy_install:
+    type: both
+    requirements_file: requirements.yml

@@ -1,0 +1,35 @@
+- name: "deploy "
+  hosts:
+    - node1
+  
+  gather_facts: true
+  become: true
+
+  roles:
+    - name: "Install docker"
+      role: geerlingguy.docker
+      vars:
+        docker_users: vagrant
+    - name: "Install minikube"
+      role: robertdebock.minikube
+      vars:
+        minikube_user: vagrant
+        minikube_command: "/usr/bin/minikube start --driver docker"
+    - name: "Install kubectl"
+      role: robertdebock.kubectl
+    - name: "Install helm"
+      role: geerlingguy.helm
+      vars:
+        helm_version: 'v3.2.1'
+        helm_platform: linux
+        helm_arch: amd64
+    - name: "Install and run PostgreSQL"
+      role: postgresql
+
+
+  # 
+  #   - ping:
+    #   - include: ../roles/tasks/{{ inventory_hostname }}.yml
+  # handlers:
+  #   - include: ../roles/handlers/all_handlers.yml
+  # /home/dbudakov/.ansible/collections/ansible_collections/community/general/tests/integration/targets/ansible_galaxy_install
