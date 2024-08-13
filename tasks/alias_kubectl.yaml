@@ -1,0 +1,23 @@
+- name: "Add kubectl alias for vagrant"
+  become_user: vagrant
+  block:
+    - name: "Add alias"
+      lineinfile:
+        path=/home/vagrant/.bashrc
+        line="alias kubectl='minikube kubectl --'"
+        owner=vagrant
+        regexp='^alias kubectl='
+        state=present
+        insertafter=EOF
+        create=True
+
+    - name: "Pull kubectl plugin"
+      ansible.builtin.command:
+        cmd: "minikube kubectl --"
+
+# - name: "Install helm diff plugin"
+#   kubernetes.core.helm_plugin:
+
+#     plugin_path: https://github.com/databus23/helm-diff
+#     plugin_version: 3.4.1
+#     state: present

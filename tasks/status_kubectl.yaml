@@ -1,7 +1,0 @@
-- name: "status: kubectl"
-  become_user: vagrant
-  ansible.builtin.command:
-    cmd: "kubectl version"
-  register: status_kubectl
-  no_log: true
-  ignore_errors: true

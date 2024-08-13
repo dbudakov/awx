@@ -6,13 +6,14 @@
     image: postgres:{{ postgresql_version }}
     state: started
     # recreate: yes
-    restart_policy: always
+    # restart_policy: always
     ports:
       - "{{postgres_instance_port}}:{{postgres_instance_port}}"
     volumes:
       - postgres:/var/lib/postgresql/data
     networks:
       - name: minikube
+        ipv4_address: 192.168.49.3
     env:
       POSTGRES_USER: "{{ postgresql_user }}"
       POSTGRES_PASSWORD: "{{ postgresql_password }}"

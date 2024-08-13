@@ -8,25 +8,26 @@
   pre_tasks:
     - import_tasks: tasks/status_docker.yaml
     - import_tasks: tasks/status_minikube.yaml
-    - import_tasks: tasks/status_kubectl.yaml
 
   roles:
-    # - name: "Install docker"
-    #   role: geerlingguy.docker
-    #   when: status_docker.stdout is not search('Docker')
-    # - name: "Setting docker"
-    #   role: docker
-    # - name: "Install minikube"
-    #   role: robertdebock.minikube
-    #   when: '"host: Running" not in status_minikube.stdout_lines'
-    # - name: "Install kubectl"
-    #   role: robertdebock.kubectl
-    #   when: status_kubectl.stdout is not search('Client')
+    - name: "Install docker"
+      role: geerlingguy.docker
+      when: status_docker.stdout is not search('Docker')
+    - name: "Setting docker"
+      role: docker
+    - name: "Install minikube"
+      role: robertdebock.minikube
+      when: '"host: Running" not in status_minikube.stdout_lines'
     - name: "Install helm"
       role: geerlingguy.helm
-    # - name: "Install postgresql-client"
-    #   role: cimon-io.postgresql-client
-    # - name: "Install, run and configure PostgreSQL"
-    #   role: postgresql
+    - name: "Install postgresql-client"
+      role: cimon-io.postgresql-client
+    - name: "Install, run and configure PostgreSQL"
+      role: postgresql
     - name: "awx: install"
-      role: helm_awx
+      role: awx
+
+
+  post_tasks: 
+    - import_tasks: tasks/alias_kubectl.yaml
+

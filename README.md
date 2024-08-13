@@ -26,3 +26,7 @@ helm install my-awx-operator awx-operator/awx-operator
 # helm install my-awx-operator awx-operator/awx-operator -n awx --create-namespace -f my-values.yml --version 1.3.0
 # helm delete my-awx-operator
 ```
+
+```bash
+vagrant up && vagrant halt && vagrant up --provision
+```
