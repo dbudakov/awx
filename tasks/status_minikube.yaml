@@ -1,0 +1,7 @@
+- name: "status: minikube"
+  become_user: vagrant
+  ansible.builtin.command:
+    cmd: "minikube status"
+  register: status_minikube
+  no_log: true
+  ignore_errors: true

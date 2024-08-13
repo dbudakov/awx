@@ -1,0 +1,13 @@
+docker_users: vagrant
+
+minikube_user: vagrant
+minikube_command: "/usr/bin/minikube start --driver docker"
+
+# helm_version: 'v3.2.1'
+helm_version: 'v3.4.1'
+helm_platform: linux
+helm_arch: amd64
+
+postgresql_client_version: "15"
+
+minikube_check_status: minikube status

@@ -1,0 +1,7 @@
+- name: "status: docker"
+  become_user: vagrant
+  ansible.builtin.command:
+    cmd: "docker --version"
+  register: status_docker
+  no_log: true
+  ignore_errors: true

@@ -19,3 +19,4 @@ postgresql_users:
     port: "{{ postgres_instance_port }}"
 postgres_users_no_log: true
 postgresql_version: 15.2
+postgresql_python_library: python3-psycopg2

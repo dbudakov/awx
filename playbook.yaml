@@ -1,49 +1,32 @@
 - name: "deploy "
   hosts:
     - node1
-  
   gather_facts: true
   become: true
+  vars_files:
+   - vars/main.yaml  
+  pre_tasks:
+    - import_tasks: tasks/status_docker.yaml
+    - import_tasks: tasks/status_minikube.yaml
+    - import_tasks: tasks/status_kubectl.yaml
 
   roles:
     # - name: "Install docker"
     #   role: geerlingguy.docker
-    #   vars:
-    #     docker_users: vagrant
-    - name: "Setting docker"
-      become: false
-      role: docker
+    #   when: status_docker.stdout is not search('Docker')
+    # - name: "Setting docker"
+    #   role: docker
     # - name: "Install minikube"
     #   role: robertdebock.minikube
-    #   vars:
-    #     minikube_user: vagrant
-    #     minikube_command: "/usr/bin/minikube start --driver docker"
+    #   when: '"host: Running" not in status_minikube.stdout_lines'
     # - name: "Install kubectl"
     #   role: robertdebock.kubectl
-    # - name: "Install helm"
-    #   role: geerlingguy.helm
-    #   vars:
-    #     helm_version: 'v3.2.1'
-    #     helm_platform: linux
-    #     helm_arch: amd64
-    - name: "Install postgresql-client"
-      role: cimon-io.postgresql-client
-      postgresql_client_version: "15"
-    - name: "Install and run PostgreSQL"
-      role: postgresql
-      # vars: 
-        # postgresql_version: 15.2
-
-    # - name: "Create database for awx"
-    #   become: true
-    #   vars_files:
-    #     - ../postgresql/vars/main.yml
-    #   role: geerlingguy.postgresql
-
-
-  # 
-  #   - ping:
-    #   - include: ../roles/tasks/{{ inventory_hostname }}.yml
-  # handlers:
-  #   - include: ../roles/handlers/all_handlers.yml
-  # /home/dbudakov/.ansible/collections/ansible_collections/community/general/tests/integration/targets/ansible_galaxy_install
+    #   when: status_kubectl.stdout is not search('Client')
+    - name: "Install helm"
+      role: geerlingguy.helm
+    # - name: "Install postgresql-client"
+    #   role: cimon-io.postgresql-client
+    # - name: "Install, run and configure PostgreSQL"
+    #   role: postgresql
+    - name: "awx: install"
+      role: helm_awx

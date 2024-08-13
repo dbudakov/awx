@@ -1,0 +1,12 @@
+- name: "Check and create path {{ config_path | dirname }}"
+  file: 
+    path: "{{ config_path | dirname }}"
+    state: directory
+
+- name: Copy docker/config.json with owner and permissions
+  ansible.builtin.copy:
+    src: config.json
+    dest: "{{ config_path }}"
+    owner: "{{ docker_users }}"
+    group: "{{ docker_users }}"
+    mode: '0644'

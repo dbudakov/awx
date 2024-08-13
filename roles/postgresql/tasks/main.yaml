@@ -25,6 +25,7 @@
     line: "{{ postgres_container_result.container.NetworkSettings.Networks.minikube.IPAddress }} {{ postgres_instance_name }}"
 
 # Configure PostgreSQL. geerlingguy.postgresql
+- import_tasks: setup.yml
 - import_tasks: users.yml
 - import_tasks: databases.yml
 - import_tasks: users_props.yml

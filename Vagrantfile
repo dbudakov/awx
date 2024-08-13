@@ -6,8 +6,8 @@ MACHINES = {
   :'node1' => {
       :box_name => "ubuntu/focal64",
       :box_url => "https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64-vagrant.box",
-      :box_cpu => "2",
-      :box_mem => "4096",
+      :box_cpu => "4",
+      :box_mem => "8192",
       :ip_addr => '192.168.56.201',
     }
 #   :'control' => {
