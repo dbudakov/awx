@@ -30,3 +30,8 @@ helm install my-awx-operator awx-operator/awx-operator
 ```bash
 vagrant up && vagrant halt && vagrant up --provision
 ```
+
+
+```bash
+minikube start --cpus=4 --memory=6g --addons=ingress
+```
