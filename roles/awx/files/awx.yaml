@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: awx-operator-postgres-configuration
+  namespace: default
+stringData:
+  host: postgres
+  port: "5432"
+  database: awx
+  username: awx
+  password: awx
+  type: unmanaged
+  sslmode: allow
+type: Opaque
+---
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx-demo
+  namespace: default
+spec:
+  replicas: 1
+  postgres_configuration_secret: awx-operator-postgres-configuration
+  admin_password_secret: awx
+  admin_user: awx
+  service_type: nodeport

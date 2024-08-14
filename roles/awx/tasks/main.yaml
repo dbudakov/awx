@@ -1,0 +1,37 @@
+- name: Add a repository
+  become_user: vagrant
+  kubernetes.core.helm_repository:
+    name: awx-operator
+    repo_url: https://ansible-community.github.io/awx-operator-helm/
+
+- name: Copy values.yaml
+  become_user: vagrant
+  copy:
+    src: files/awx.yaml
+    dest: /tmp/awx.yaml
+
+- name: Deploy awx chart
+  become_user: vagrant
+  kubernetes.core.helm:
+    name: awx
+    chart_ref: awx-operator/awx-operator
+    release_namespace: default
+
+- name: install pip
+  apt:
+    pkg: 
+      - python3-pip
+    state: present
+
+- name: install pre-requisites
+  pip:
+    name:
+      - pyyaml
+      - kubernetes 
+
+- name: Apply AWX
+  become_user: vagrant
+  kubernetes.core.k8s:
+    state: present
+    src: /tmp/awx.yaml
+     
