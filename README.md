@@ -8,6 +8,11 @@
 - _https://grafana.lab_: admin:admin
 - _https://prometheus.lab_: free
 
+### DEMO
+- добавить secret в vault
+- определить cred: добавить путь к секрету в credentials
+- привязать кред в template: добавить секрет к job_template
+
 ### vault
 
 ```bash
@@ -23,21 +28,6 @@ vault token lookup # vault token lookup -format json  | jq -r .data.id
 vault secrets enable -path=secret/ kv
 vault kv put -mount=secret custom example=hello_world!
 ```
-
-### minikube dashboard
-
-```bash
-# https://thenewstack.io/how-to-enable-and-use-the-minikube-dashboard/
-minikube dashboard --url --port=8081
-kubectl proxy --address='0.0.0.0' --accept-hosts='^*$' --port=8080
-192.168.0.111:8080/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/
-```
-
-### DEMO
-- добавить secret в vault
-- определить cred: добавить путь к секрету в credentials
-- привязать кред в template: добавить секрет к job_template
-
 
 ### metrics
 ```bash
