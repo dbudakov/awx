@@ -1,86 +1,31 @@
+# AWX BOX
 
-ansible-galaxy collection install -r requirements.yml
-ansible-galaxy install -r requirements.yml
+### accounts
 
-```txt
-~/.kube/config
-* unable to read client-cert /home/vagrant/.minikube/profiles/minikube/client.crt for minikube due to open /home/vagrant/.minikube/profiles/minikube/client.crt: no such file or directory
-* unable to read client-key /home/vagrant/.minikube/profiles/minikube/client.key for minikube due to open /home/vagrant/.minikube/profiles/minikube/client.key: no such file or directory
-* unable to read certificate-authority /home/vagrant/.minikube/ca.crt for minikube due to open /home/vagrant/.minikube/ca.crt: no such file or directory
-```
-
-
-https://ansible.readthedocs.io/projects/awx-operator/en/latest/#get-involved
-https://github.com/ansible/awx-operator/tree/devel
-https://www.jeffgeerling.com
-
-https://ansible.readthedocs.io/projects/awx-operator/en/latest/installation/creating-a-minikube-cluster-for-testing.html
-
-## helm chart
-https://ansible-community.github.io/awx-operator-helm/
-
-```bash
-helm repo add awx-operator https://ansible-community.github.io/awx-operator-helm/
-helm install my-awx-operator awx-operator/awx-operator
-# my-values.yml: https://raw.githubusercontent.com/ansible/awx-operator/2.19.1/awx-demo.yml
-# helm install my-awx-operator awx-operator/awx-operator -n awx --create-namespace -f my-values.yml --version 1.3.0
-# helm delete my-awx-operator
-```
-
-```bash
-vagrant up && vagrant halt && vagrant up --provision
-```
-
-
-```bash
-# minikube start --cpus=4 --memory=6g --addons=ingress
-```
-
-```bash
-vagrant ssh
-minikube service awx-service
-"http://192.168.49.2:32246" >> ./roles/nginx/conf/awx.conf
-```
+- _https://awx.lab_: awx:awx
+- _https://keycloak.lab_: admin:admin
+- _https://vault.lab_: token -> my_token
+- _https://grafana.lab_: admin:admin
+- _https://prometheus.lab_: free
 
 ### vault
+
 ```bash
 export VAULT_ADDR='http://127.0.0.1:8200'
-export VAULT_TOKEN=$(docker exec vault sh -c "cat /home/vault/.vault-token")
+export VAULT_TOKEN=$(docker exec vault sh -c "cat /home/vault/.vault-token") # VAULT_TOKEN=my_token
 vault token lookup 
 
-# for awx.lab
 # Type Details -> Server URL * 
 http://192.168.49.5:8200
-
-# Token 
-VAULT_TOKEN
-
-# добавить путь к секрету в credentials
-# добавить секрет к job_template
 
 # vault add secret
 vault token lookup # vault token lookup -format json  | jq -r .data.id
 vault secrets enable -path=secret/ kv
-vault kv put -mount=secret hello foo=world excited=yes
-
-
+vault kv put -mount=secret custom example=hello_world!
 ```
 
-### vector
-
-
-### metrics
-
-
-### other
-vagratn 2.4.1 -> http://vagrant.krsnv.ru/2.4.1/
-https://vagrant.elab.pro/downloads/
-
-
-logger_name: awx.analytics.job_events
-job: 8
-
 ### minikube dashboard
+
 ```bash
 # https://thenewstack.io/how-to-enable-and-use-the-minikube-dashboard/
 minikube dashboard --url --port=8081
@@ -88,33 +33,11 @@ kubectl proxy --address='0.0.0.0' --accept-hosts='^*$' --port=8080
 192.168.0.111:8080/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/
 ```
 
-### color AWX (false)
-
-<!-- https://docs.ansible.com/ansible-tower/latest/html/towercli/output.html -->
-helm pull awx-operator/awx-operator
-
-
-
-vault create secrets
-keycloak
-exception 500 awx
-
-apply keycloak and awx auth
-apply dashboard 
-apply discover elastic
-
-helm chart download
-
-
-/opt/keycloak/bin/kc.sh export --realm lab --file /tmp/export
- /opt/keycloak/bin/kc.sh import --file /tmp/export 
-
-
-
-
- secret vault
- определить cred
- привязать кред в template
+### DEMO
+```
+# добавить путь к секрету в credentials
+# добавить секрет к job_template
+```
 
 ### metrics
 ```bash
@@ -128,3 +51,6 @@ task_manager_commit_seconds{node="awx-task-786c84cf49-c2l6n"} 0.0003204345703125
 # TYPE dependency_manager_get_tasks_seconds gauge
 dependency_manager_get_tasks_seconds{node="awx-task-786c84cf49-c2l6n"} 0.0031810149998818815
 ```
+
+### kibana: visual
+- logger_name: awx.analytics.job_events, job: 8
