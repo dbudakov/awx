@@ -1,0 +1,35 @@
+- name: "prepare: Copy files"
+  copy:
+    src: conf
+    dest: /tmp/
+
+- import_tasks: minikube.yaml
+- import_tasks: certs.yaml
+
+# - name: "prepare: Copy files"
+#   copy:
+#     src: certs
+#     dest: /tmp/
+
+- name: "prepare: Copy files"
+  copy:
+    src: files/nginx.conf
+    dest: /tmp/nginx.conf
+
+- name: Create Nginx Container
+  docker_container:
+    name: nginx
+    image: nginx
+    state: started
+    recreate: "{{ nginx_recreate }}"
+    # restart_policy: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+     - /tmp/nginx.conf:/etc/nginx/nginx.conf
+     - /tmp/conf:/etc/nginx/conf.d
+     - /tmp/certs:/certs
+    networks:
+      - name: minikube
+        ipv4_address: 192.168.49.4

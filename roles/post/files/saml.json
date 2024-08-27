@@ -1,0 +1,67 @@
+
+{
+    "SAML_AUTO_CREATE_OBJECTS": true,
+    "SOCIAL_AUTH_SAML_CALLBACK_URL": "https://towerhost/sso/complete/saml/",
+    "SOCIAL_AUTH_SAML_METADATA_URL": "https://towerhost/sso/metadata/saml/",
+    "SOCIAL_AUTH_SAML_SP_ENTITY_ID": "awx",
+    "SOCIAL_AUTH_SAML_SP_PUBLIC_CERT": "-----BEGIN CERTIFICATE-----MIIFjTCCA3WgAwIBAgIUO+DjeHqe+jw3ARTqJMJT6jJsjiwwDQYJKoZIhvcNAQELBQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoMGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDAeFw0yNDA4MjYyMDIwMTZaFw0yNTA4MjYyMDIwMTZaMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCz3k+6NIdj2PYwrmRqKHAP6e5jpMkpEb3u/fpqQF7WYy5wPoZLihImkFwOqlYm4qMEwNdl177PgFO4bcTuIXdHX1lO1t/iJwmWsg4d67xXx7QZjHrRk2H+Otz8IWe7fEozHeMAB0cuQTFdxGaMYIr6K8yEib2oVHMCR8kfS655hrFq5T98w5vXwt3/EP2nRyofJBuKBOSoSFDWotvR0DvljGMnmpYvBsEDtHQDerTqjiVtC08a8yDZ0F9iedhCygkXIaI4kn7loFPFErrsDhRNDa+VwD1TY6Gg8IOWj3aNy9neMTvkZyrwBojKWXzAE7ERiIL6f+SGU4u8CWDYezujac8LcLDhM9LpnYLh28Z0N07Ocz5PVrDjBUdLSo2fuREnA89i77+T6aQayWZRgaYJJAS7wE7Z4PUXc0Q2fvULG19gjAxG/QBE9026zrrUffVjXW+V1XXL/rLG6qQMh5Z+YN+DEjipExAVYgqoGnlPEOkh3Ywdqs4KfzdQZUl/aILbwN2Kb7wQJTak/xxUWPMlnLn1r9X3KoOASpwUwxgtq1G8C0yklH/efAxl9+3jikRJxrf9NsddMeP6Tp1HwVm0kp4SxUyxQ8Y/JXpgq4JtQbJzjZtT4AY1vgVpqvjVtCt/cuephuVuOonpi+vc5dcLd1iMJIFZC9Eb3bfLhVwiiwIDAQABo3UwczAdBgNVHQ4EFgQULxgcfeCLmj7UbKoeVGOS+7WkA4EwHwYDVR0jBBgwFoAULxgcfeCLmj7UbKoeVGOS+7WkA4EwDwYDVR0TAQH/BAUwAwEB/zAgBgNVHREEGTAXggdhd3gubGFiggxrZXljbG9hay5sYWIwDQYJKoZIhvcNAQELBQADggIBAEh3+khhnllc9JLxDyOh61C+KIH1iD7NB9k/Trvg840EaaLJPN2Aq9CwmMVcNCoQBpTUuVYzbhFfGhyHqcNBw54JcmjlyzcMT4vo0CUif2hJINGFGb0Zo7P6ipwbjGl51U9h4HgSYc2MAR3H/uTosWy2nqvBWBBViEur/BBt/9snqcanv1ipgtljg3Sq+M8QZBKBplDZGi76RjLfkmJgumuGx32QbBL+5vVIFIsYLAUb3EFX9ob7aCrkQQ0A4yu1Eyu8OUUMyqD20/lvA0JPvEfUE4COwsInQHy34U0oVgONbIeACEMBxx0lQqZXjJ6ZJ56KMnqH9IgjtKE38Q1UTCGs8oFPDu8eY9ME5pUg4bBP/0IaYItHV1bZ1btXS8aEAN7X4aelZyFlZlJll31uNsfKNcf6T/3DtfG1Vp3rJXfXJNdborQW0HpjkMYGGyLlcUlKOqnBVMtXgaZv1k+QlNysqH44JF8Eb7PYe5VB6rElhl9OqZW/kydBv1HLPY81k576jwd7WT1CgrDbmB2IFdX3F4jvmZCmFghY4/75rQX3XJzXHqrDo6u9SluJpJzE7uqOytplbEczLASLA5cZHpwAbEO8fNRIJ/DMT7SQa6ZLHSljezWN+4lg2ooQnqq3YqGXwjCqLDwXMg1lD9DbY8rp5Y+xMHkR51gZjUP+SlAI-----END CERTIFICATE-----",
+    "SOCIAL_AUTH_SAML_SP_PRIVATE_KEY": "-----BEGIN PRIVATE KEY-----MIIJRQIBADANBgkqhkiG9w0BAQEFAASCCS8wggkrAgEAAoICAQCz3k+6NIdj2PYwrmRqKHAP6e5jpMkpEb3u/fpqQF7WYy5wPoZLihImkFwOqlYm4qMEwNdl177PgFO4bcTuIXdHX1lO1t/iJwmWsg4d67xXx7QZjHrRk2H+Otz8IWe7fEozHeMAB0cuQTFdxGaMYIr6K8yEib2oVHMCR8kfS655hrFq5T98w5vXwt3/EP2nRyofJBuKBOSoSFDWotvR0DvljGMnmpYvBsEDtHQDerTqjiVtC08a8yDZ0F9iedhCygkXIaI4kn7loFPFErrsDhRNDa+VwD1TY6Gg8IOWj3aNy9neMTvkZyrwBojKWXzAE7ERiIL6f+SGU4u8CWDYezujac8LcLDhM9LpnYLh28Z0N07Ocz5PVrDjBUdLSo2fuREnA89i77+T6aQayWZRgaYJJAS7wE7Z4PUXc0Q2fvULG19gjAxG/QBE9026zrrUffVjXW+V1XXL/rLG6qQMh5Z+YN+DEjipExAVYgqoGnlPEOkh3Ywdqs4KfzdQZUl/aILbwN2Kb7wQJTak/xxUWPMlnLn1r9X3KoOASpwUwxgtq1G8C0yklH/efAxl9+3jikRJxrf9NsddMeP6Tp1HwVm0kp4SxUyxQ8Y/JXpgq4JtQbJzjZtT4AY1vgVpqvjVtCt/cuephuVuOonpi+vc5dcLd1iMJIFZC9Eb3bfLhVwiiwIDAQABAoICAQCB6OEglevre7pkcrBn1AkMFWNuaIg5t2y8/ocs0o0svrm9rAsG6BQv8jfrB6/tqecf+cAY+HgCGqddHzsK2vTxgbZZMOzGxHcydiuoBKklpUE46rOSRqaSHiWZnO71BNH6lW1sidUpXUCwfreqT9hQ0+2FFI780vG2Be8HQXwkndnqYOU30Xfvn/kCzlzFwqpzj3qsdthHiuOIAlxN794y7vB2nDo4gOJLMLxR/wBIIJ57YZ2i01M4vj0GPQarRozGPi6SOYyZgPC/98U11P1ooafdutkQL3d/a/c+eSOhSkhzKJAfaTwj3DRUIcnuWMqc5UHkdxawxgq4pvVhpa/uIW62u4etDYTpXqgITPEBQ2lgJ/xtjkqS34vJ7mEljFoq1+iuCe7nQBrFW5Upa98vCq43M4IT7gwHtMO78fFJE/tuHmEZObwfp+ttePHNXPxFrNlkgp/spr7KkM6LulTDEQbBZ1cHW2iM6y7Oq4VLUR1Sz6MhKcSyRqTfh+mIoc6qZ5LDX3Y+Icl7hEguLv02B1qy5ZMg/MmXNpqKyCCP4q35tV/YTovAtBzKnLE3SpmjeL8qpbE5otlOpu82YpiDEIoFd6o+4+KiF7ipSaAkAWtEDwOJFYA9dz9ELuoS9AcjMxh9Xk5wBwi7hYsgCbKO6eDZ9bb7djiR/4SXy4Vp4QKCAQEA7QPsq3D28R/8SeD9BaxQ/Zg/50P0CrYFouAk00Rq5eanMuUcqO3KoRqmCYmzm/IX6Y2O5JJPQilbt9wJNNIWTmVdmS/lt2O/6swIGIfC0kWA/yvXp9B0FJ/xyTB7XQ+qQj/UThd5l3WwWvtfWXpk+e6r5DtgqyWbu/4/+EjFYezZ4X+zs0LZdpgF1BD3f6YNEkbK+HCvj/p+xy3DvzKi2IBQ5lRxe0qdBATxA/NQL0I/oX04d3QuzcdHy7llQYMMo6rztOc8+HhWxc7I8jvKkiFHUBFmyBeQunK1QjuQX+VPO7lvlID+GNd0e1SmCY6p3Ulj836Za2q6eRmpVfCHaQKCAQEAwkaSJACO6BkY5h21Qk5ItstnLWHgGdf2secHWGMzCvXZArULqw2ePPD25QlAiEZ+VWc7YwD7aquOCa4SJvFo9zldWykCCWitp5olsRZLeJn80eaU6Y1VirdTmi6V9AS3mNUVKC6mCDMgGAhcvdDaJ4vRFALt15122KUJN7P1DmkHtlfXWf/4iitUbPlfNhy1AIWFgr1TMxz1GD/DtmBmGtCoxVzZ5sTqwzVQ4ck1QvfWy9Ykw1Prnm5P+CqFlaPlEyXBJ5xQVqzg/qleqfDcVKU62jBqwcJCG76aJ+nFiiFZxbFjQzSPr9uGhYQoTriBHpOTln/La88IA4X7w3Zv0wKCAQEA6OOOTfc17kBLmhxlAooLGuPbBtcSmOO6Lgyoop77muNFLxFJVAQzspGIzJ5tybHcJTVfTuEk2BHjeYnP0gMMwAOCMN+LjOOK1J+e5NuhZxO8aP8fbFm7dfijj9j/nrWhym8FoaYXZ+fQXdXaHwXQ6nTGmgBuQD04BUUSflii+lHM1XKxlFb/bzR5paL2TotPFMJS9kNjfsnYgMZLLTgII0wSMgCPcWIjXqusVwFhrM4f0AJG1blns/M4bMnC4NhwNvHnfb4pfsxgFwXVFZACwAvLErXGlJ3zLAFCcc4tUszzSfAv32/QPYCXiAfpDkMMTc+rUrr27UF18UBxz2wE4QKCAQEAqC1pQ0tMarWXLVWYXM7h+YO5TLsGwbiHsVfarvQo8psCgmpxsGD4k67RPFI3EAFeSdY0va7S9nOOYOjUg+vFvwZkv46PWc/JTGaPrG4tZTiAeMBQNqIH5C5xa+5aF0SiHuaPCxre1ghUBxnuFs+emk9Z7iXe+SEyCbdMdHEPeasIZxxBq4KACDQcQL3bYz+UnN/5RMVaKcwujBBe/xkSKrJo93k6lJ/wzo3v95Uzy0Y7Jne5mXGjbaH3DlDZFUItAtdTD1Qs4+uCVlIORbThN1FV0h3JvPPKQLRORLEFNV9LlGzMDhiJLmYuXJScRBFKjUqZn9X/JdOyD0LEQF/dywKCAQEAlhbJ7jFZqSqM/FDB/e8CEFJ3uzYmgWAok4Ea5MABUA+FrwsiC1VwRIhWWMDW5cgqO1PB++4Hi0uvR+AmLGmSrWm4VrmXIZInpifD8YHg86WaqC9TUhRo2TyJWUmkRkYd1uI759DRQg265flwubdcVdnn48A4fbKkgexiMC0hhQlLHO4B3pzAyQEaS1TfPEv13QejsFLvO0llz5nUq8w/Mv0GVJDz6XWBx1qHUzX/xOteK+za5odxk3JpqUXYO16V2fOQ5yXpn8d6hyiNkEDg3y/6js8Cee87oheua5Dx7B0QtWLdpgjuzZ+qugwICIGNutBWoVVlHYtcpCKEOtWX0g==-----END PRIVATE KEY-----",
+    "SOCIAL_AUTH_SAML_ORG_INFO": {
+        "en-US": {
+            "url": "https://keycloak.lab",
+            "name": "Portal",
+            "displayname": "Lab Cloud"
+        }
+    },
+    "SOCIAL_AUTH_SAML_TECHNICAL_CONTACT": {
+        "givenName": "Lab Cloud",
+        "emailAddress": "sre.cloud@lab.ru"
+    },
+    "SOCIAL_AUTH_SAML_SUPPORT_CONTACT": {
+        "givenName": "Lab Cloud",
+        "emailAddress": "sre.cloud@lab.ru"
+    },
+    "SOCIAL_AUTH_SAML_ENABLED_IDPS": {
+        "Portal": {
+            "url": "https://keycloak.lab/realms/lab/protocol/saml",
+            "x509cert": "MIIClTCCAX0CBgGRkEvifzANBgkqhkiG9w0BAQsFADAOMQwwCgYDVQQDDANsYWIwHhcNMjQwODI2MjAwNDM3WhcNMzQwODI2MjAwNjE3WjAOMQwwCgYDVQQDDANsYWIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDI73tXcSU6KcVvGWSjCegfPM+zYgmJXdDz/fr0GlgIkf65F9KnAkFk+qsBaWvUjD2jho4v8XZlfhIQ3Q3tCfyWICrrAL/wTQS+eOSvI03ktYYwiiG0/YfEWZjcvD/K+teJ8lDecT06TemrMFEscgitUCMRBkkyta7jgRSTK/xpIEvoeeMgoep1ITUqPqo2qVWInQsI86Ry8YVh0XVr9Z3OLNYTpQNvYKK7tvQAU0/AvsWqy+GKufs34ivOEpuCGU5RO7l9IfoXqB6r9+w8wt6v3UnU6TBvJ1GB4J+NAPZeP7CR63ILDwc+m+AdWMtURaLFi1WPqmW8S1GhVIQKgPDRAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAF7GSMMz/+tb2KiWcpXslUNtJIDIHiQCBCD+4MQSffQ1WNbFf8acWESKYR2CoqFwDRtcZKURdkUVwFd5TTl0/aj3ePX4DQDWEY1Y7L+e20rTfXMoDJ8wfDTLkVTXfv/uuKiwxtkhIQmHaDIlBr0MqQQ2iiRgBPF4FTdJPGt6Qp5Ia4UoyPdx0FABVHBljdk3IyKPEx6tsuLQmT7WKfE+hMmicPUMl3ng9/cGfc2Zn/hlkAuD5e0Uq4crV6eYlKzivEgRo0aHGNKgKNZyZbPFJm1ANB+B8ifg/7cxIWIuAUNQtTbE/gvpkI8cas9ojWXecZLFtFaFwDSia9WpW9B46XA=",
+            "entity_id": "https://keycloak.lab/realms/lab",
+            "attr_email": "email",
+            "attr_groups": "groups",
+            "attr_username": "username",
+            "attr_last_name": "last_name",
+            "attr_first_name": "first_name",
+            "attr_user_permanent_id": "name_id"
+        }
+    },
+    "SOCIAL_AUTH_SAML_SECURITY_CONFIG": {
+        "requestedAuthnContext": false
+    },
+    "SOCIAL_AUTH_SAML_SP_EXTRA": null,
+    "SOCIAL_AUTH_SAML_EXTRA_DATA": null,
+    "SOCIAL_AUTH_SAML_ORGANIZATION_MAP": null,
+    "SOCIAL_AUTH_SAML_TEAM_MAP": null,
+    "SOCIAL_AUTH_SAML_ORGANIZATION_ATTR": {},
+    "SOCIAL_AUTH_SAML_TEAM_ATTR": {
+        "saml_attr": "groups",
+        "team_org_map": [
+            {
+                "team": "/awx/readers",
+                "team_alias": "readers",
+                "organization": "Default"
+            },
+            {
+                "team": "/awx/admins",
+                "team_alias": "admins",
+                "organization": "Default"
+            }
+        ]
+    },
+    "SOCIAL_AUTH_SAML_USER_FLAGS_BY_ATTR": {
+        "is_superuser_attr": "groups",
+        "remove_superusers": true,
+        "is_superuser_value": [
+            "/awx/superusers"
+        ]
+    }
+}

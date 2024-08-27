@@ -1,0 +1,22 @@
+# - name: Publicate awx-web-service
+  # become_user: vagrant
+  # command: "minikube service awx-service"
+# 
+- name: Wait until awx-service UP
+  become_user: vagrant
+  command: "minikube service awx-service --url"
+  until: awx_service_up.rc == 0
+  retries: 60 # Retries for 60 * 5 seconds = 300 seconds = 5 minutes
+  delay: 5 # Every 5 seconds
+  register: awx_service_up
+
+- name: Publicate awx-web-service URL
+  become_user: vagrant
+  command: "minikube service awx-service --url"
+  register: awx_service_url
+
+- name: "Update awx.conf for nginx"
+  ansible.builtin.lineinfile:
+    path: /tmp/conf/awx.conf
+    regexp: "proxy_pass"
+    line: "            proxy_pass {{ awx_service_url.stdout }};"

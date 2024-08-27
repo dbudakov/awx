@@ -10,10 +10,8 @@
         state=present
         insertafter=EOF
         create=True
+      notify: "Pull kubectl plugin"
 
-    - name: "Pull kubectl plugin"
-      ansible.builtin.command:
-        cmd: "minikube kubectl --"
 
 # - name: "Install helm diff plugin"
 #   kubernetes.core.helm_plugin:

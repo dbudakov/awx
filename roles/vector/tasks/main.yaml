@@ -1,0 +1,33 @@
+- name: "prepare: config files"
+  copy:
+    src: conf/vector.toml
+    dest: /tmp/vector.toml
+
+
+- name: Create Vector Container
+  docker_container:
+    name: "{{ vector_instance_name }}"
+    image: timberio/vector:latest-alpine
+    state: started
+    recreate: "{{ vector_recreate }}"
+    # restart_policy: always
+    ports:
+      - 8686:8686
+      - 9098:9098
+    volumes:
+      - /tmp/vector.toml:/etc/vector/vector.toml:ro
+    networks:
+      - name: minikube
+        ipv4_address: 192.168.49.6
+    # env:
+    #   HOST_IP: 192.168.49.7
+    #   ELASTIC_USER: elastic
+    #   ELASTIC_PASSWORD: P@ssw0rd 
+    command: "--config /etc/vector/vector.toml"
+  register: vector_container_result
+
+- name: "Add {{ vector_instance_name }}_ip to /etc/host"
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: " {{ vector_instance_name }}$"
+    line: "{{ vector_container_result.container.NetworkSettings.Networks.minikube.IPAddress }} {{ vector_instance_name }}"

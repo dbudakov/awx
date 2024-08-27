@@ -1,0 +1,12 @@
+- name: Set logging 
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/settings/logging/"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: PATCH
+    body: "{{ lookup('ansible.builtin.file','files/logging.json') }}"
+    force_basic_auth: true
+    status_code: 200
+    body_format: json
+    validate_certs: false
+    follow_redirects: all

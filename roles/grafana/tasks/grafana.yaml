@@ -1,0 +1,23 @@
+- name: Create Grafana Container
+  docker_container:
+    name: "{{ grafana_instance_name }}"
+    image: grafana/grafana-enterprise:11.1.4
+    state: started
+    recreate: "{{ grafana_recreate }}"
+    # restart_policy: always
+    ports:
+      - 3000:3000
+    # volumes:
+    #   - ./path:/path/to/path
+    networks:
+      - name: minikube
+        ipv4_address: 192.168.49.9
+    # env:
+    #   VAR: ""
+  register: grafana_container_result
+
+- name: "Add {{ grafana_instance_name }}_ip to /etc/host"
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: " {{ grafana_instance_name }}$"
+    line: "{{ grafana_container_result.container.NetworkSettings.Networks.minikube.IPAddress }} {{ grafana_instance_name }}"

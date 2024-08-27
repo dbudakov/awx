@@ -1,0 +1,31 @@
+- name: Prepare dir for certs
+  ansible.builtin.file:
+    path: /tmp/certs
+    state: directory
+    owner: vagrant
+    group: vagrant
+
+- name: Create private key (RSA, 4096 bits)
+  community.crypto.openssl_privatekey:
+    path: /tmp/certs/certs.key
+
+- name: Create certificate signing request (CSR) for self-signed certificate
+  community.crypto.openssl_csr_pipe:
+    privatekey_path: /tmp/certs/certs.key
+    common_name: lab
+    organization_name: home
+    subject_alt_name:
+      - "DNS:awx.lab"
+      - "DNS:vault.lab"
+      - "DNS:kibana.lab"
+      - "DNS:grafana.lab"
+      - "DNS:prometheus.lab"
+      - "DNS:keycloak.lab"
+  register: csr
+
+- name: Create self-signed certificate from CSR
+  community.crypto.x509_certificate:
+    path: /tmp/certs/certs.crt
+    csr_content: "{{ csr.csr }}"
+    privatekey_path: /tmp/certs/certs.key
+    provider: selfsigned

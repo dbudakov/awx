@@ -1,0 +1,54 @@
+- name: Create Vault Container
+  docker_container:
+    name: "{{ vault_instance_name }}"
+    image: vault:1.13.3
+    state: started
+    recreate: "{{ vault_recreate }}"
+    # restart_policy: always
+    ports:
+      - 8200:8200
+    volumes:
+      - ./vault/config:/vault/config
+      - ./vault/policies:/vault/policies
+      - ./vault/data:/vault/data
+    networks:
+      - name: minikube
+        ipv4_address: 192.168.49.5
+    env:
+      VAULT_ADDR: "http://0.0.0.0:8200"
+      VAULT_API_ADDR: "http://0.0.0.0:8200"
+      VAULT_ADDRESS: "http://0.0.0.0:8200"
+      VAULT_DEV_ROOT_TOKEN_ID: "my_token"
+  register: vault_container_result
+
+- name: "Add {{ vault_instance_name }}_ip to /etc/host"
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: " {{ vault_instance_name }}$"
+    line: "{{ vault_container_result.container.NetworkSettings.Networks.minikube.IPAddress }} {{ vault_instance_name }}"
+
+- name: Install vault package
+  community.general.snap:
+    name: vault
+    state: present
+
+- name: Register VAULT_TOKEN env
+  community.docker.docker_container_exec:
+    container: "{{ vault_instance_name }}"
+    argv:
+      - /bin/sh
+      - "-c"
+      - "cat /home/vault/.vault-token"
+  register: vault_result
+
+- name: "Add VAULT_TOKEN to ~./bashrc"
+  ansible.builtin.lineinfile:
+    path: /home/vagrant/.bashrc
+    regexp: "VAULT_TOKEN"
+    line: "export VAULT_TOKEN={{ vault_result.stdout }}"
+
+- name: "Add VAULT_ADDR to ~./bashrc"
+  ansible.builtin.lineinfile:
+    path: /home/vagrant/.bashrc
+    regexp: "VAULT_ADDR"
+    line: "export VAULT_ADDR='http://127.0.0.1:8200'"

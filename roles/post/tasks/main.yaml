@@ -1,0 +1,24 @@
+- name: Get awx-web-service URL
+  become_user: vagrant
+  command: "minikube service awx-service --url"
+  register: awx_service_url
+
+- name: Wait until HTTP status is 200
+  uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/ping"
+    return_content: yes
+    validate_certs: no
+    status_code:
+      - 200
+  until: uri_output.status == 200
+  retries: 300 # Retries for 24 * 5 seconds = 120 seconds = 2 minutes
+  delay: 1 # Every 1 seconds
+  register: uri_output
+
+- import_tasks: awx_saml.yaml
+- import_tasks: awx_logging.yaml
+- import_tasks: cred_types.yaml
+- import_tasks: cred_conn.yaml
+- import_tasks: cred.yaml
+- import_tasks: project.yaml
+- import_tasks: job_template.yaml

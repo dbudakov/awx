@@ -1,0 +1,56 @@
+- name: "Prepare: creath path for realm.json"
+  ansible.builtin.file:
+    path: /tmp/keycloak
+    state: directory
+    owner: vagrant
+    group: vagrant
+
+- name: "Prepare: copy lab-realm.json"
+  ansible.builtin.copy:
+    src: files/lab-realm.json
+    dest: /tmp/keycloak/lab-realm.json
+
+- name: Create keycloak Container
+  docker_container:
+    name: "{{ keycloak_instance_name }}"
+    image: quay.io/keycloak/keycloak:22.0.5
+    state: started
+    recreate: "{{ keycloak_recreate }}"
+    # restart_policy: always
+    volumes:
+      - /tmp/keycloak/lab-realm.json:/opt/keycloak/data/import/lab-realm.json
+    ports:
+      - 8888:8888
+    networks:
+      - name: minikube
+        ipv4_address: 192.168.49.11
+    env:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: keycloak
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_PROXY: "edge"
+    command: ["start-dev", "--import-realm", "--http-port=8888", "--health-enabled=true"]
+  register: keycloak_container_result
+
+- name: "Add {{ keycloak_instance_name }}_ip to /etc/host"
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: " {{ keycloak_instance_name }}$"
+    line: "{{ keycloak_container_result.container.NetworkSettings.Networks.minikube.IPAddress }} {{ keycloak_instance_name }}"
+
+- name: Wait until HTTP status is 200
+  uri:
+    url: "http://192.168.49.11:8888/health"
+    return_content: yes
+    validate_certs: no
+    status_code:
+      - 200
+  until: uri_output.status == 200
+  retries: 40
+  delay: 3 
+  register: uri_output

@@ -1,0 +1,32 @@
+[api]
+enabled = true
+address = "0.0.0.0:8686"
+
+[sources.demo_logs]
+type = "demo_logs"
+interval = 1.0
+format = "json"
+
+[transforms.parse_logs]
+type = "remap"
+inputs = ["demo_logs"]
+source = '''
+. = parse_json!(.message)
+'''
+
+[sinks.my_sink_id]
+type = "elasticsearch"
+inputs = [ "demo_logs" ]
+doc_type = "json"
+endpoint = "https://${HOST_IP}:9200"
+
+[sinks.my_sink_id.auth]
+strategy = "basic"
+user = "${ELASTIC_USER}"
+password = "${ELASTIC_PASSWORD}"
+
+[sinks.my_sink_id.tls]
+verify_certificate = true # default
+verify_hostname = true # default
+ca_file = "/tmp/elastic.crt"
+# crt_file = "/tmp/elastic.crt"

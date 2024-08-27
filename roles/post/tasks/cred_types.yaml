@@ -1,0 +1,39 @@
+- name: Get credential_types 
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/credential_types/?name={{CREDENTIAL_TYPE_CUSTOM_NAME}}"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: GET
+    force_basic_auth: true
+    status_code: 200
+    validate_certs: false
+    follow_redirects: all
+  register: rc
+
+- name: Set credential_types 
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/credential_types/"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: POST
+    body: "{{ lookup('ansible.builtin.template','files/cred_types.json.j2') }}"
+    force_basic_auth: true
+    status_code: 201
+    body_format: json
+    validate_certs: false
+    follow_redirects: all
+  when: rc.json.results[0].id is undefined
+
+- name: Set credential_types 
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/credential_types/{{ rc.json.results[0].id }}"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: PATCH
+    body: "{{ lookup('ansible.builtin.template','files/cred_types.json.j2') }}"
+    force_basic_auth: true
+    status_code: 200
+    body_format: json
+    validate_certs: false
+    follow_redirects: all
+  when: rc.json.results[0].id is defined

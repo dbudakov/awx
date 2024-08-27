@@ -1,0 +1,12 @@
+- name: Set SAML 
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/settings/saml/"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: PATCH
+    body: "{{ lookup('ansible.builtin.file','files/saml.json') }}"
+    force_basic_auth: true
+    status_code: 200
+    body_format: json
+    validate_certs: false
+    follow_redirects: all

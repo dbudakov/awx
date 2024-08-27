@@ -1,0 +1,3 @@
+- name: "Pull kubectl plugin"
+  ansible.builtin.command:
+    cmd: "minikube kubectl --"

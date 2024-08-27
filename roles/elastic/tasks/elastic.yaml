@@ -1,0 +1,29 @@
+- name: Create Elastic Container
+  docker_container:
+    name: "{{ elastic_instance_name }}"
+    image: "elasticsearch:{{ tag_image }}"
+    state: started
+    recreate: "{{ elastic_recreate }}"
+    # restart_policy: always
+    ulimits:
+      nofile:65536:65536
+      memlock:-1:-1
+    ports:
+      - 9200:9200
+    networks:
+      - name: minikube
+        ipv4_address: 192.168.49.7
+    env: 
+      ES_JAVA_OPTS: "-Xms2g -Xmx2g"
+      ES_SETTING_BOOTSTRAP_MEMORY__LOCK: "true"
+      ES_SETTING_DISCOVERY_TYPE: "single-node"
+      ES_SETTING_XPACK_SECURITY_ENABLED: "false"
+      ES_SETTING_XPACK_SECURITY_ENROLLMENT_ENABLED: "false"
+  register: elastic_container_result
+
+- name: "Add {{ elastic_instance_name }}_ip to /etc/host"
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: " {{ elastic_instance_name }}$"
+    line: "{{ elastic_container_result.container.NetworkSettings.Networks.minikube.IPAddress }} {{ elastic_instance_name }}"
+

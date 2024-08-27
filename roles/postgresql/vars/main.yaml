@@ -9,6 +9,12 @@ postgresql_databases:
     login_user: "{{ postgresql_user }}"
     port: "{{ postgres_instance_port }}"
     owner: awx
+  - name: keycloak
+    login_host: "{{ postgres_instance_name }}"
+    login_password: "{{ postgresql_password }}"
+    login_user: "{{ postgresql_user }}"
+    port: "{{ postgres_instance_port }}"
+    owner: keycloak
 postgresql_users:
   - name: awx
     password: awx
@@ -17,6 +23,13 @@ postgresql_users:
     login_password: "{{ postgresql_password }}"
     login_user: "{{ postgresql_user }}"
     port: "{{ postgres_instance_port }}"
+  - name: keycloak
+    password: keycloak
+    db: keycloak
+    login_host: "{{ postgres_instance_name }}"
+    login_password: "{{ postgresql_password }}"
+    login_user: "{{ postgresql_user }}"
+    port: "{{ postgres_instance_port }}"    
 postgres_users_no_log: true
 postgresql_version: 15.2
 postgresql_python_library: python3-psycopg2

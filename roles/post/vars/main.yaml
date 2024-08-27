@@ -1,0 +1,23 @@
+TOWER_USER: awx
+TOWER_PASSWORD: awx
+TOWER_HOST: awx.lab
+
+
+CREDENTIAL_TYPE_CUSTOM_NAME: custom
+VARS_NAME: custom_vars
+USER: 1
+
+CREDENTIAL_TYPE_NAME: HashiCorp%20Vault%20Secret%20Lookup
+CONNECT_CREDENTIAL_NAME: hc_vault_secret
+
+CREDENTIAL_NAME: custom
+
+# projects
+PROJ_NAME: custom
+GIT_REPO: https://github.com/dbudakov/awx-demo.git
+GIT_BRANCH: main
+
+# job_templates
+INVENTORY_NAME: Demo%20Inventory
+JOB_TMP_NAME: custom_vars
+PLAYBOOK_NAME: debug_vars.yaml

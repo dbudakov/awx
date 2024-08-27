@@ -1,0 +1,53 @@
+- name: Get credential_types 
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/credential_types/?name={{ CREDENTIAL_TYPE_CUSTOM_NAME }}"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: GET
+    force_basic_auth: true
+    status_code: 200
+  register: rc
+
+- name: Defile CONNECT_CREDENTIAL_ID
+  set_fact: 
+    CONNECT_CREDENTIAL_ID: "{{ rc.json.results[0].id }}"
+
+- name: Get credential
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/credentials/?name={{ CREDENTIAL_NAME }}"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: GET
+    force_basic_auth: true
+    status_code: 200
+    validate_certs: false
+    follow_redirects: all
+  register: rc
+
+- name: POST credentials 
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/credentials/"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: POST
+    body: "{{ lookup('ansible.builtin.template','files/cred.json.j2') }}"
+    force_basic_auth: true
+    status_code: 201
+    body_format: json
+    validate_certs: false
+    follow_redirects: all
+  when: rc.json.results[0].id is undefined
+
+- name: PATCH credentials 
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/credentials/{{ rc.json.results[0].id }}"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: PATCH
+    body: "{{ lookup('ansible.builtin.template','files/cred.json.j2') }}"
+    force_basic_auth: true
+    status_code: 200
+    body_format: json
+    validate_certs: false
+    follow_redirects: all
+  when: rc.json.results[0].id is defined

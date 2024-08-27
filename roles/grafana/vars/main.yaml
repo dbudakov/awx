@@ -1,0 +1,9 @@
+grafana_instance_name: grafana
+prometheus_instance_name: prometheus
+TOWER_USER: awx
+TOWER_PASSWORD: awx
+
+GRAFANA_USER: admin
+GRAFANA_PASSWORD: admin
+
+DATASOURCE_NAME: prometheus

@@ -1,0 +1,33 @@
+- name: Prepare copy prometheus.yml
+  ansible.builtin.template:
+    src: conf/prometheus.yaml.j2
+    dest: /tmp/prometheus.yaml
+    remote_src: false
+
+- name: Create Prometheus Container
+  docker_container:
+    name: "{{ prometheus_instance_name }}"
+    image: prom/prometheus:v2.53.2
+    state: started
+    recreate: "{{ prometheus_recreate }}"
+    # restart_policy: always
+    ports:
+      - 9090:9090
+    volumes:
+      - /tmp/prometheus.yaml:/etc/prometheus/prometheus.yml
+    networks:
+      - name: minikube
+        ipv4_address: 192.168.49.10
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/etc/prometheus/console_libraries"
+      - "--web.console.templates=/etc/prometheus/consoles"
+      - "--web.enable-lifecycle"
+  register: prometheus_container_result
+
+- name: "Add {{ prometheus_instance_name }}_ip to /etc/host"
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: " {{ prometheus_instance_name }}$"
+    line: "{{ prometheus_container_result.container.NetworkSettings.Networks.minikube.IPAddress }} {{ prometheus_instance_name }}"

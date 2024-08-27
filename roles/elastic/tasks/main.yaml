@@ -1,0 +1,2 @@
+- import_tasks: elastic.yaml
+- import_tasks: kibana.yaml

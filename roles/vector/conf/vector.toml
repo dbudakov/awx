@@ -1,0 +1,35 @@
+[api]
+enabled = true
+address = "0.0.0.0:8686"
+
+[sources.my_source_id]
+type = "socket"
+mode = "tcp"
+address = "0.0.0.0:9098"
+decoding.codec = "json"
+
+[transforms.parse_logs]
+type = "remap"
+inputs = ["my_source_id"]
+source = '''
+parsed, err = parse_syslog(.message)
+if err == null {
+  . |= parsed
+} 
+.application = "cloud-example"
+.podname = "${HOSTNAME}"
+# . = parse_json!(.message)
+'''
+
+# [sinks.my_sink_id]
+# type = "file"
+# inputs = ["parse_logs"]
+# path = "/tmp/vector-%Y-%m-%d.log"
+# encoding.codec = "json"
+
+[sinks.my_sink_id]
+type = "elasticsearch"
+inputs = ["parse_logs"]
+doc_type = "json"
+endpoint = "http://elastic:9200"
+

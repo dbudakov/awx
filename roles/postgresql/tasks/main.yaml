@@ -1,12 +1,13 @@
-# - name: Check docker status
-
 - name: Create Postgres Container
   docker_container:
     name: "{{ postgres_instance_name }}"
     image: postgres:{{ postgresql_version }}
     state: started
-    # recreate: yes
+    recreate: "{{ postgres_recreate }}"
     # restart_policy: always
+    ulimits:
+      nofile:65536:65536
+      memlock:-1:-1    
     ports:
       - "{{postgres_instance_port}}:{{postgres_instance_port}}"
     volumes:

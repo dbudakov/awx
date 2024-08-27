@@ -1,0 +1,23 @@
+{
+    "name": "{{ CREDENTIAL_TYPE_CUSTOM_NAME }}",
+    "description": "",
+    "kind": "cloud",
+    "inputs": {
+      "fields": [
+        {
+          "id": "value",
+          "type": "string",
+          "label": "Value",
+          "secret": true
+        }
+      ],
+      "required": [
+        "value"
+      ]
+    },
+    "injectors": {
+      "extra_vars": {
+        "{{ VARS_NAME }}": "{{ '{{' }} value {{ '}}' }}"
+      }
+    }
+}

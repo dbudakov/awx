@@ -21,6 +21,7 @@
   apt:
     pkg: 
       - python3-pip
+      - jq
     state: present
 
 - name: install pre-requisites
@@ -34,4 +35,8 @@
   kubernetes.core.k8s:
     state: present
     src: /tmp/awx.yaml
-     
+
+# - name: Publicate awx-web-service
+  # become_user: vagrant
+  # command: "minikube service awx-service"
+#

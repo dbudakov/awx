@@ -3,30 +3,52 @@
     - node1
   gather_facts: true
   become: true
+  handlers:
+    - import_tasks: handlers/main.yaml
+  vars:
+      ansible_python_interpreter: /usr/bin/python3.8
   vars_files:
-   - vars/main.yaml  
+    - vars/main.yaml  
   pre_tasks:
     - import_tasks: tasks/status_docker.yaml
     - import_tasks: tasks/status_minikube.yaml
 
   roles:
-    - name: "Install docker"
+    - name: "docker: Install"
       role: geerlingguy.docker
       when: status_docker.stdout is not search('Docker')
-    - name: "Setting docker"
+    - name: "docker: Setting"
       role: docker
-    - name: "Install minikube"
+    - name: "minikube: Install"
       role: robertdebock.minikube
       when: '"host: Running" not in status_minikube.stdout_lines'
-    - name: "Install helm"
+    - name: "helm: Install "
       role: geerlingguy.helm
-    - name: "Install postgresql-client"
+    - name: "postgresql-client: Install"
       role: cimon-io.postgresql-client
-    - name: "Install, run and configure PostgreSQL"
+    - name: "postgres: Run on docker"
       role: postgresql
-    - name: "awx: install"
+    - name: "awx: Deploy on minikube"
       role: awx
+    - name: "nginx: Run on docker"
+      role: nginx
+    
+    - name: "vault: Run on docker"
+      role: vault
+    
+    - name: "vector: Run on docker"
+      role: vector
+    - name: "elastic: Run on docker"
+      role: elastic
 
+    - name: ""
+      role: post
+
+    - name: "grafana: Run on docker"
+      role: grafana
+
+    - name: "keycloak: Run on docker"
+      role: keycloak
 
   post_tasks: 
     - import_tasks: tasks/alias_kubectl.yaml

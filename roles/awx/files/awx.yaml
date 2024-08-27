@@ -8,19 +8,30 @@ stringData:
   port: "5432"
   database: awx
   username: awx
-  password: awx
+  password: awx 
   type: unmanaged
   sslmode: allow
 type: Opaque
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: awx-admin-password
+  namespace: default
+stringData:
+  password: awx
+---
 apiVersion: awx.ansible.com/v1beta1
 kind: AWX
 metadata:
-  name: awx-demo
+  name: awx
   namespace: default
 spec:
-  replicas: 1
+  replicas: 2
   postgres_configuration_secret: awx-operator-postgres-configuration
-  admin_password_secret: awx
+  admin_password_secret: awx-admin-password
   admin_user: awx
   service_type: nodeport
+  # ee_extra_env: |
+  #   - name: TOWER_COLOR
+  #     value: f     

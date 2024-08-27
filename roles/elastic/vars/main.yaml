@@ -1,0 +1,3 @@
+elastic_instance_name: elastic
+kibana_instance_name: kibana
+tag_image: 8.4.0

@@ -1,0 +1,51 @@
+- name: Wait until HTTP status is 200
+  uri:
+    url: "http://192.168.0.111:3000/api/health"
+    return_content: yes
+    validate_certs: no
+    status_code:
+      - 200
+  until: uri_output.status == 200
+  retries: 300 # Retries for 24 * 5 seconds = 120 seconds = 2 minutes
+  delay: 1 # Every 1 seconds
+  register: uri_output
+
+- name: Check datasource
+  ansible.builtin.uri:
+    url: "http://192.168.0.111:3000/api/datasources/?name={{ DATASOURCE_NAME }} "
+    force_basic_auth: true
+    user: "{{ GRAFANA_USER }}"
+    password: "{{ GRAFANA_PASSWORD }}"
+    method: GET
+    status_code: 200
+    validate_certs: false
+    follow_redirects: all
+  register: rc
+
+- name: POST datasources 
+  ansible.builtin.uri:
+    url: "http://192.168.0.111:3000/api/datasources"
+    user: "{{ GRAFANA_USER }}"
+    password: "{{ GRAFANA_PASSWORD }}"
+    method: POST
+    body: "{{ lookup('ansible.builtin.template','files/datasource.json.j2') }}"
+    force_basic_auth: true
+    status_code: 200
+    body_format: json
+    validate_certs: false
+    follow_redirects: all
+  when:  rc.json[0].orgId is undefined
+
+- name: PUT datasources 
+  ansible.builtin.uri:
+    url: "http://192.168.0.111:3000/api/datasources/{{ rc.json[0].orgId  }}"
+    user: "{{ GRAFANA_USER }}"
+    password: "{{ GRAFANA_PASSWORD }}"
+    method: PUT
+    body: "{{ lookup('ansible.builtin.template','files/datasource.json.j2') }}"
+    force_basic_auth: true
+    status_code: 200
+    body_format: json
+    validate_certs: false
+    follow_redirects: all
+  when:  rc.json[0].orgId is defined

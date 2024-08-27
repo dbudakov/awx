@@ -1,7 +1,7 @@
 docker_users: vagrant
 
 minikube_user: vagrant
-minikube_command: "/usr/bin/minikube start --driver docker --static-ip 192.168.49.2"
+minikube_command: "/usr/bin/minikube start --driver docker --static-ip 192.168.49.2 --cpus=4 --memory=6g --addons=ingress"
 
 helm_version: 'v3.4.1'
 helm_platform: linux
@@ -10,3 +10,13 @@ helm_arch: amd64
 postgresql_client_version: "15"
 
 minikube_check_status: minikube status
+
+vector_recreate: false
+nginx_recreate: false
+elastic_recreate: false
+kibana_recreate: false
+vault_recreate: false
+grafana_recreate: false
+prometheus_recreate: false
+keycloak_recreate: false
+postgres_recreate: false

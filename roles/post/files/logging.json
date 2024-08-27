@@ -1,0 +1,7 @@
+{
+    "LOG_AGGREGATOR_ENABLED": true,
+    "LOG_AGGREGATOR_HOST": "vector",
+    "LOG_AGGREGATOR_PORT": 9098,
+    "LOG_AGGREGATOR_TYPE": "other",
+    "LOG_AGGREGATOR_PROTOCOL": "tcp"
+}

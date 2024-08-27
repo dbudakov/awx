@@ -1,0 +1,60 @@
+- name: Get projects 
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/projects/?name={{ PROJ_NAME }}"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: GET
+    force_basic_auth: true
+    status_code: 200
+    validate_certs: false
+    follow_redirects: all
+  register: rc
+
+- name: POST projects 
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/projects/"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: POST
+    body: "{{ lookup('ansible.builtin.template','files/project.json.j2') }}"
+    force_basic_auth: true
+    status_code: 201
+    body_format: json
+    validate_certs: false
+    follow_redirects: all
+  ignore_errors: true    
+  when: rc.json.results[0].id is undefined
+
+- name: Defile var PROD_LOCAL_PATH
+  set_fact: 
+    PROD_LOCAL_PATH: "{{ rc.json.results[0].local_path }}"
+  when: rc.json.results[0].id is defined
+
+- name: PATCH projects 
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/projects/{{ rc.json.results[0].id }}"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: PATCH
+    body: "{{ lookup('ansible.builtin.template','files/project.json.j2') }}"
+    force_basic_auth: true
+    status_code: 200
+    body_format: json
+    validate_certs: false
+    follow_redirects: all
+  when: rc.json.results[0].id is defined
+
+- name: Get status projects 
+  ansible.builtin.uri:
+    url: "{{ awx_service_url.stdout }}/api/v2/projects/?name={{ PROJ_NAME }}"
+    user: "{{ TOWER_USER }}"
+    password: "{{ TOWER_PASSWORD }}"
+    method: GET
+    force_basic_auth: true
+    status_code: 200
+    validate_certs: false
+    follow_redirects: all
+  until: uri_output.json.results[0].status == 'successful'
+  retries: 24
+  delay: 5
+  register: uri_output
