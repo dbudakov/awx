@@ -34,10 +34,10 @@ kubectl proxy --address='0.0.0.0' --accept-hosts='^*$' --port=8080
 ```
 
 ### DEMO
-```
-# добавить путь к секрету в credentials
-# добавить секрет к job_template
-```
+- добавить secret в vault
+- определить cred: добавить путь к секрету в credentials
+- привязать кред в template: добавить секрет к job_template
+
 
 ### metrics
 ```bash
